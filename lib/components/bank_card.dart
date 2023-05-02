@@ -1,13 +1,20 @@
+import 'package:app/components/bank_card_dto.dart';
 import 'package:flutter/material.dart';
 
 class BankCard extends StatelessWidget {
-  const BankCard({Key? key}) : super(key: key);
+  const BankCard({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
+
+  final BankCarDTO data;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 220,
       width: 350,
+      margin: const EdgeInsets.only(bottom: 50),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
@@ -18,12 +25,12 @@ class BankCard extends StatelessWidget {
             offset: const Offset(9, 9), // changes position of shadow
           ),
         ],
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: <Color>[
-            Colors.black,
-            Colors.black54,
+            data.start,
+            data.end,
           ],
         ),
       ),
@@ -32,15 +39,15 @@ class BankCard extends StatelessWidget {
         child: Column(
           children: [
             Row(
-              children: const [
-                Icon(
+              children: [
+                const Icon(
                   Icons.local_convenience_store_outlined,
                   color: Colors.white,
                 ),
-                SizedBox(width: 15),
+                const SizedBox(width: 15),
                 Text(
-                  'Universal Bank',
-                  style: TextStyle(
+                  data.title,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
@@ -51,19 +58,17 @@ class BankCard extends StatelessWidget {
             const SizedBox(height: 60),
             Row(
               children: [
-                numberText('0000'),
+                numberText(data.bin1),
                 const SizedBox(width: 20),
-                numberText('0000'),
+                numberText(data.bi2),
                 const SizedBox(width: 20),
-                numberText('0000'),
+                numberText(data.bi3),
                 const SizedBox(width: 20),
-                numberText('0000'),
-
+                numberText(data.bi4),
               ],
             ),
             const SizedBox(height: 30),
-            cvv()
-            
+            date(data.dateExp)
           ],
         ),
       ),
@@ -73,16 +78,16 @@ class BankCard extends StatelessWidget {
   Widget numberText(String number) {
     return Text(
       number,
-      style: const TextStyle(
-        color: Colors.white,
+      style: TextStyle(
+        color: data.titleColor,
         fontSize: 18,
       ),
     );
   }
 
-  Widget cvv() {
+  Widget date(String data) {
     return Text(
-      '006',
+      data,
       style: const TextStyle(
         color: Colors.white,
         fontSize: 18,
