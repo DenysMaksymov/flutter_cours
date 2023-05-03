@@ -4,6 +4,8 @@ import 'package:app/components/bank_card_dto.dart';
 import 'package:app/components/card_switcher.dart';
 import 'package:flutter/material.dart';
 
+import 'validation_input.dart';
+
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
 
@@ -75,9 +77,10 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ...list.map((value) => CardSwitcher(
-                      data: value,
-                    ))
+                ValidationInput(),
+                // ...list.map((value) => CardSwitcher(
+                //       data: value,
+                //     ))
               ],
             ),
           ),
