@@ -1,5 +1,7 @@
 import 'package:app/components/bank_card.dart';
+import 'package:app/components/bank_card_back.dart';
 import 'package:app/components/bank_card_dto.dart';
+import 'package:app/components/card_switcher.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -15,7 +17,8 @@ class HomeScreen extends StatelessWidget {
         dateExp: '03/99',
         start: Colors.black,
         end: Colors.black45,
-        titleColor: Colors.white),
+        titleColor: Colors.white,
+        cvv: '000'),
     BankCarDTO(
         title: 'UK Bank',
         bin1: '2222',
@@ -25,7 +28,8 @@ class HomeScreen extends StatelessWidget {
         dateExp: '06/50',
         start: Colors.blue,
         end: Colors.yellow,
-        titleColor: Colors.black),
+        titleColor: Colors.black,
+        cvv: '111'),
     BankCarDTO(
         title: 'UK Bank',
         bin1: '2222',
@@ -35,7 +39,8 @@ class HomeScreen extends StatelessWidget {
         dateExp: '06/50',
         start: Colors.green,
         end: Colors.yellow,
-        titleColor: Colors.black),
+        titleColor: Colors.black,
+        cvv: '222'),
     BankCarDTO(
         title: 'UK Bank',
         bin1: '2222',
@@ -45,7 +50,8 @@ class HomeScreen extends StatelessWidget {
         dateExp: '06/50',
         start: Colors.green,
         end: Colors.yellow,
-        titleColor: Colors.black),
+        titleColor: Colors.black,
+        cvv: '333'),
     BankCarDTO(
         title: 'UK Bank',
         bin1: '2222',
@@ -55,7 +61,8 @@ class HomeScreen extends StatelessWidget {
         dateExp: '06/50',
         start: Colors.green,
         end: Colors.yellow,
-        titleColor: Colors.black),
+        titleColor: Colors.black,
+        cvv: '444'),
   ];
 
   @override
@@ -68,7 +75,9 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ...list.map((value) => BankCard(data: value,))
+                ...list.map((value) => CardSwitcher(
+                      data: value,
+                    ))
               ],
             ),
           ),

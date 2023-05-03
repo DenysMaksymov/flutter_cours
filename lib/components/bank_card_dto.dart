@@ -7,6 +7,7 @@ class BankCarDTO {
   final String bi3;
   final String bi4;
   final String dateExp;
+  final String cvv;
   final Color start;
   final Color end;
   final Color titleColor;
@@ -21,5 +22,6 @@ class BankCarDTO {
     required this.start,
     required this.end,
     required this.titleColor,
+    required this.cvv,
   });
 }
