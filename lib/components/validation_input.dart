@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 
 class ValidationInput extends StatefulWidget {
-  const ValidationInput({Key? key}) : super(key: key);
+  const ValidationInput({Key? key, required this.onInput}) : super(key: key);
+
+  final Function(String) onInput;
 
   @override
   State<ValidationInput> createState() => _ValidationInputState();
@@ -13,6 +15,7 @@ class _ValidationInputState extends State<ValidationInput> {
   bool ismasterCard = false;
 
   void parseNumberCard(String value) {
+    widget.onInput(value);
     if(value.trim() == '1'){
       ismasterCard = true;
     }else{

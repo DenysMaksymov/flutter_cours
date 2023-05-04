@@ -2,13 +2,19 @@ import 'package:app/components/bank_card.dart';
 import 'package:app/components/bank_card_back.dart';
 import 'package:app/components/bank_card_dto.dart';
 import 'package:app/components/card_switcher.dart';
+import 'package:app/components/item.dart';
 import 'package:flutter/material.dart';
 
 import 'validation_input.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   List<BankCarDTO> list = [
     BankCarDTO(
         title: 'Universal Bank',
@@ -67,8 +73,13 @@ class HomeScreen extends StatelessWidget {
         cvv: '444'),
   ];
 
+  late BankCarDTO g;
+
+  String data = '';
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -77,7 +88,18 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ValidationInput(),
+                ValidationInput(onInput: (value ) {
+                  data = value;
+                  setState(() {
+
+                  });
+                },
+
+                ),
+                Item(
+                  data: data,
+                )
+
                 // ...list.map((value) => CardSwitcher(
                 //       data: value,
                 //     ))

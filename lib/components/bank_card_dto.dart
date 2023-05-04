@@ -1,5 +1,8 @@
 import 'dart:ui';
 
+
+enum CardType{master, vasa}
+
 class BankCarDTO {
   final String title;
   final String bin1;
@@ -24,4 +27,10 @@ class BankCarDTO {
     required this.titleColor,
     required this.cvv,
   });
+
+  void add(jhkj){
+
+  }
+
+  get isMaster => bin1 == '1111'?  CardType.master: CardType.vasa;
 }
