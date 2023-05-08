@@ -3,6 +3,7 @@ import 'package:app/components/transaction_list/transaction_item.dart';
 import 'package:app/models/bank_card_dto.dart';
 import 'package:app/models/transaction_dto.dart';
 import 'package:flutter/material.dart';
+import 'package:help_ukraine_widget/help_ukraine_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -109,6 +110,11 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
 
       ///TODO Need it in future @DenysMaksymov
+      floatingActionButton: OverlayWidget(
+        alignment: Alignment.bottomRight,
+        overlayWidget: HorizontalHelpWidget(),
+        child: Container(),
+      ),
       // floatingActionButton: Row(
       //   mainAxisAlignment: MainAxisAlignment.center,
       //   children: [
