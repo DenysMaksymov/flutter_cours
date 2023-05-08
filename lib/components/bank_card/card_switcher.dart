@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:app/components/bank_card_dto.dart';
+import 'package:app/models/bank_card_dto.dart';
 import 'package:flutter/material.dart';
 
 import 'bank_card.dart';
@@ -25,19 +25,22 @@ class _CardSwitcherState extends State<CardSwitcher> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        showFrontSide =! showFrontSide;
+        showFrontSide = !showFrontSide;
         setState((){});
       },
-      child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 500),
-        transitionBuilder: transitionBuilder,
-        child: showFrontSide
-            ? BankCard(
-                data: widget.data,
-              )
-            : BankCardBack(
-                data: widget.data,
-              ),
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 500),
+          transitionBuilder: transitionBuilder,
+          child: showFrontSide
+              ? BankCard(
+                  data: widget.data,
+                )
+              : BankCardBack(
+                  data: widget.data,
+                ),
+        ),
       ),
     );
   }

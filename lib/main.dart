@@ -1,4 +1,4 @@
-import 'package:app/components/home_screen.dart';
+import 'package:app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -7,6 +7,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
 
   @override
   Widget build(BuildContext context) {

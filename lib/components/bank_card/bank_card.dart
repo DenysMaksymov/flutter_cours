@@ -1,4 +1,4 @@
-import 'package:app/components/bank_card_dto.dart';
+import 'package:app/models/bank_card_dto.dart';
 import 'package:flutter/material.dart';
 
 class BankCard extends StatelessWidget {
@@ -10,11 +10,10 @@ class BankCard extends StatelessWidget {
   final BankCarDTO data;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build (BuildContext context) {
     return Container(
       height: 220,
       width: 350,
-      margin: const EdgeInsets.only(bottom: 50),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
