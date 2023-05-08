@@ -23,7 +23,7 @@ class _CardSwitcherState extends State<CardSwitcher> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: (){
         showFrontSide = !showFrontSide;
         setState((){});

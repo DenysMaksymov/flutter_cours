@@ -123,6 +123,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.2"
+  scrollable_panel:
+    dependency: "direct main"
+    description:
+      name: scrollable_panel
+      sha256: e11ba96c1a7aae7cbe42181b070c73e1dd7b5dac5ec77027fa11885019338d07
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.1"
   sky_engine:
     dependency: transitive
     description: flutter

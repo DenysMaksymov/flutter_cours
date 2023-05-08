@@ -15,4 +15,11 @@ List<TransactionDto> transactionList = [
   TransactionDto(date: '20-12-23', amount: '500', name: 'Serjo'),
   TransactionDto(date: '20-12-23', amount: '500', name: 'Serjo'),
   TransactionDto(date: '20-12-23', amount: '500', name: 'Serjo'),
+  TransactionDto(date: '20-12-23', amount: '500', name: 'Serjo'),
+  TransactionDto(date: '20-12-23', amount: '500', name: 'Serjo'),
+  TransactionDto(date: '20-12-23', amount: '500', name: 'Serjo'),
+  TransactionDto(date: '20-12-23', amount: '500', name: 'Serjo'),
+  TransactionDto(date: '20-12-23', amount: '500', name: 'Serjo'),
+  TransactionDto(date: '20-12-23', amount: '500', name: 'Serjo'),
+  TransactionDto(date: '20-12-23', amount: '500', name: 'Serjo'),
 ];

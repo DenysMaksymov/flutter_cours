@@ -1,11 +1,17 @@
 import 'package:app/components/bank_card/card_switcher.dart';
-import 'package:app/components/transaction_list/transaction_list.dart';
+import 'package:app/components/transaction_list/transaction_item.dart';
 import 'package:app/models/bank_card_dto.dart';
+import 'package:app/models/transaction_dto.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   List<BankCarDTO> list = [
     BankCarDTO(
         title: 'Universal Bank',
@@ -64,30 +70,102 @@ class HomeScreen extends StatelessWidget {
         cvv: '444'),
   ];
 
+  DraggableScrollableController controller = DraggableScrollableController();
+
+  double opacity = 1.0;
+
+  @override
+  void initState() {
+    controller.addListener(() => listen());
+    super.initState();
+  }
+
+  void listen() {
+    opacity = 1 - controller.size;
+    // print(['opacity ====>', opacity]);
+    // print(['controller.size ====>', controller.size]);
+    if (opacity > controller.size) {
+    } else if (opacity < controller.size) {}
+    setState(() {});
+  }
+
+  toUp() {
+    controller.animateTo(1,
+        duration: Duration(milliseconds: 200), curve: Curves.ease);
+  }
+
+  toDown() {
+    controller.animateTo(.6,
+        duration: Duration(milliseconds: 200), curve: Curves.ease);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(183, 183, 183, 1.0),
+      backgroundColor: Colors.grey,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+
+      ///TODO Need it in future @DenysMaksymov
+      // floatingActionButton: Row(
+      //   mainAxisAlignment: MainAxisAlignment.center,
+      //   children: [
+      //     GestureDetector(
+      //       onTap: () => toUp(),
+      //       child: const Icon(
+      //         Icons.arrow_circle_up,
+      //         size: 50,
+      //       ),
+      //     ),
+      //     GestureDetector(
+      //       onTap: () => toDown(),
+      //       child: const Icon(
+      //         Icons.arrow_circle_down,
+      //         size: 50,
+      //       ),
+      //     ),
+      //   ],
+      // ),
+      body: Stack(
+        alignment: Alignment.topCenter,
         children: [
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ...list.map((value) => CardSwitcher(
-                      data: value,
-                    ))
-              ],
+          AnimatedOpacity(
+            opacity: 1,
+            // left: left,
+            // right: 0,
+            duration: Duration(milliseconds: 0),
+            // curve: Curves.easeOutBack,
+            child: CardSwitcher(
+              data: list[0],
             ),
           ),
-          const SizedBox(height: 30),
-          const TransactionList()
+          DraggableScrollableSheet(
+            controller: controller,
+            initialChildSize: .6,
+            minChildSize: .6,
+            builder: (BuildContext context, ScrollController scrollController) {
+              return Container(
+                padding: const EdgeInsets.only(top: 20),
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    )),
+                child: ListView.builder(
+                  controller: scrollController,
+                  itemCount: transactionList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return TransactionItem(
+                      data: transactionList[index],
+                    );
+                  },
+                ),
+              );
+            },
+          )
         ],
       ),
     );
