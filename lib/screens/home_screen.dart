@@ -2,6 +2,7 @@ import 'package:app/components/bank_card/card_switcher.dart';
 import 'package:app/components/transaction_list/transaction_item.dart';
 import 'package:app/models/bank_card_dto.dart';
 import 'package:app/models/transaction_dto.dart';
+import 'package:app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:help_ukraine_widget/help_ukraine_widget.dart';
 
@@ -74,6 +75,12 @@ class _HomeScreenState extends State<HomeScreen> {
   DraggableScrollableController controller = DraggableScrollableController();
 
   double opacity = 1.0;
+  double leftCard = 340;
+  double leftBalance = 20;
+
+  String balance = '20.000,00 \$';
+
+  bool isShowBalance = true;
 
   @override
   void initState() {
@@ -82,22 +89,31 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void listen() {
-    opacity = 1 - controller.size;
-    // print(['opacity ====>', opacity]);
-    // print(['controller.size ====>', controller.size]);
-    if (opacity > controller.size) {
-    } else if (opacity < controller.size) {}
+    // opacity = 1 - controller.size;
+    if (controller.size > 0.6) {
+      leftCard = 500;
+      leftBalance = -250;
+      isShowBalance = false;
+    } else if (controller.size == 0.6) {
+      leftCard = 340;
+      leftBalance = 20;
+      isShowBalance = true;
+    }
+    // print(controller.size);
+    // controller.animateTo(1.0, duration: Duration(milliseconds: 300), curve: Curves.ease);
+
     setState(() {});
   }
 
-  toUp() {
-    controller.animateTo(1,
-        duration: Duration(milliseconds: 200), curve: Curves.ease);
+  void swipeToLeft() {
+    leftCard = 20;
+    leftBalance = -250;
+    setState(() {});
   }
-
-  toDown() {
-    controller.animateTo(.6,
-        duration: Duration(milliseconds: 200), curve: Curves.ease);
+  void swipeToRight() {
+    leftCard = 340;
+    leftBalance = 20;
+    setState(() {});
   }
 
   @override
@@ -105,6 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
+        title: isShowBalance ? const Text('My Card') : Text(balance),
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
       ),
@@ -115,36 +132,30 @@ class _HomeScreenState extends State<HomeScreen> {
         overlayWidget: HorizontalHelpWidget(),
         child: Container(),
       ),
-      // floatingActionButton: Row(
-      //   mainAxisAlignment: MainAxisAlignment.center,
-      //   children: [
-      //     GestureDetector(
-      //       onTap: () => toUp(),
-      //       child: const Icon(
-      //         Icons.arrow_circle_up,
-      //         size: 50,
-      //       ),
-      //     ),
-      //     GestureDetector(
-      //       onTap: () => toDown(),
-      //       child: const Icon(
-      //         Icons.arrow_circle_down,
-      //         size: 50,
-      //       ),
-      //     ),
-      //   ],
-      // ),
       body: Stack(
         alignment: Alignment.topCenter,
         children: [
-          AnimatedOpacity(
-            opacity: 1,
-            // left: left,
-            // right: 0,
-            duration: Duration(milliseconds: 0),
-            // curve: Curves.easeOutBack,
-            child: CardSwitcher(
-              data: list[0],
+          AnimatedPositioned(
+            left: leftBalance,
+            top: 20,
+            duration: const Duration(milliseconds: 100),
+            child: balanceCard(),
+          ),
+          AnimatedPositioned(
+            left: leftCard,
+            duration: const Duration(milliseconds: 100),
+            child: GestureDetector(
+              onPanUpdate: (details) {
+                if (details.delta.dx > 0) {
+                  swipeToRight();
+                }
+                if (details.delta.dx < 0) {
+                  swipeToLeft();
+                }
+              },
+              child: CardSwitcher(
+                data: list[0],
+              ),
             ),
           ),
           DraggableScrollableSheet(
@@ -174,6 +185,39 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
+    );
+  }
+
+  Widget balanceCard() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          balance,
+          style: const TextStyle(
+            fontSize: 40,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        const SizedBox(height: 10),
+        const Text(
+          'Credit balance: 10.000,00 ',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+            color: Colors.white,
+          ),
+        ),
+        const SizedBox(height: 10),
+        const Text(
+          'Debit balance: 90.000,00 ',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+            color: AppColor.white,
+          ),
+        ),
+      ],
     );
   }
 }

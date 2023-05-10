@@ -1,4 +1,5 @@
 import 'package:app/screens/home_screen.dart';
+import 'package:app/type_data.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/list_screen.dart';
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
+      // home: TypeData(),
     );
   }
 }
