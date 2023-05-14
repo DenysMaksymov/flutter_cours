@@ -1,7 +1,9 @@
+import 'package:app/components/app_drawer/app_drawer.dart';
 import 'package:app/components/bank_card/card_switcher.dart';
 import 'package:app/components/transaction_list/transaction_item.dart';
 import 'package:app/models/bank_card_dto.dart';
 import 'package:app/models/transaction_dto.dart';
+import 'package:app/screens/profile_screen.dart';
 import 'package:app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:help_ukraine_widget/help_ukraine_widget.dart';
@@ -110,20 +112,42 @@ class _HomeScreenState extends State<HomeScreen> {
     leftBalance = -250;
     setState(() {});
   }
+
   void swipeToRight() {
     leftCard = 340;
     leftBalance = 20;
     setState(() {});
   }
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.grey,
+      drawer: const AppDrawer(),
       appBar: AppBar(
         title: isShowBalance ? const Text('My Card') : Text(balance),
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
+        leading: IconButton(
+          onPressed: () {
+            _scaffoldKey.currentState?.openDrawer();
+          },
+          icon: const Icon(Icons.menu),
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileScreen(),
+                  ),
+                );
+              },
+              icon: Icon(Icons.access_time_filled))
+        ],
       ),
 
       ///TODO Need it in future @DenysMaksymov
