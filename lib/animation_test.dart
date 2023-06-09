@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'controller/loader_controller.dart';
+
 class AnimationTest extends StatefulWidget {
   const AnimationTest({Key? key}) : super(key: key);
 
@@ -15,6 +17,7 @@ class _AnimationTestState extends State<AnimationTest> {
   @override
   void initState() {
     controller.addListener(() => listen());
+    // LoaderController().getLoader();
     super.initState();
   }
 
@@ -39,6 +42,20 @@ class _AnimationTestState extends State<AnimationTest> {
       ),
       body: Column(
         children: [
+          // FutureBuilder(
+          //   future: LoaderController.getLoader(),
+          //     builder: (_, snap) {
+          //     print(snap.connectionState);
+          //   if (snap.connectionState != ConnectionState.done) {
+          //     return CircularProgressIndicator();
+          //   } else {
+          //     return Container(
+          //       height: 50,
+          //       width: 50,
+          //       color: Colors.red,
+          //     );
+          //   }
+          // })
           Expanded(
             child: ListView.builder(
               shrinkWrap: true,
